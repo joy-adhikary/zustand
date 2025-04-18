@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Nav } from 'rsuite';
-import { DateRangePicker } from 'rsuite';
 import Link from 'next/link';
 
 const Navbar = ({ activeKey }: { activeKey: string }) => {
