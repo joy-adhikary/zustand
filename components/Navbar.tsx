@@ -21,6 +21,9 @@ const Navbar = ({ activeKey }: { activeKey: string }) => {
       <Nav.Item as={Link} href="/services" active={activeKey === 'services'}>
         Calculation
       </Nav.Item>
+      <Nav.Item as={Link} href="/instractor" active={activeKey === 'instractor'}>
+        Instractor
+      </Nav.Item>
     </Nav>
     </>
   );

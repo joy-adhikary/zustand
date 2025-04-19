@@ -1,6 +1,10 @@
 "use client";
 import React from "react";
+import useCourseStore from "@/store/courseStore";
+import useInstructorStore from "@/store/instructorStore";
+import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -20,16 +24,16 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import useCourseStore from "@/store/courseStore";
-import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   token: z.coerce.number(),
 });
 
-export default function Contact() {
-  const removeCourse = useCourseStore((state) => state.removeCourse);
-  const updateCourse = useCourseStore((state) => state.updateCourseStatus);
+const CalculationPage = () => {
+  const getPrice = useCourseStore((state) => state.getAllPrice());
+  const removeInstructor = useInstructorStore(
+    (state) => state.removeInstructor
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,27 +43,29 @@ export default function Contact() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const initialCourseCount = useCourseStore.getState().courses.length;
-    removeCourse(values.token);
-    const finalCourseCount = useCourseStore.getState().courses.length;
+    const initialInstructorCount =
+      useInstructorStore.getState().instructors.length;
+    removeInstructor(values.token);
+    const finalInstructorCount =
+      useInstructorStore.getState().instructors.length;
 
-
-    if (initialCourseCount > finalCourseCount) {
-      alert(`Course with ID ${values.token} removed successfully!`);
+    if (initialInstructorCount > finalInstructorCount) {
+      alert(`Instructor with ID ${values.token} removed successfully!`);
     } else {
-      alert(`Course with ID ${values.token} not found.`);
+      alert(`Instructor with ID ${values.token} not found.`);
     }
     form.reset();
   }
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <Navbar activeKey="contact" />
-
+      <Navbar activeKey="services" />
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Remove Course</CardTitle>
-          <CardDescription>Enter the ID of the course to remove.</CardDescription>
+          <CardTitle>Remove Instructor</CardTitle>
+          <CardDescription>
+            Enter the ID of the instructor to remove.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -69,13 +75,9 @@ export default function Contact() {
                 name="token"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Course ID</FormLabel>
+                    <FormLabel>Instractor ID</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="Course ID"
-                        {...field}
-                      />
+                      <Input type="number" placeholder="Instractor ID" {...field} />
                     </FormControl>
                   </FormItem>
                 )}
@@ -83,17 +85,20 @@ export default function Contact() {
               <div className="flex justify-between">
                 <Button type="submit">Remove Course</Button>
 
-                <Button type="button" onClick={ () => {
-                  const courseId = form.getValues("token");
-                  console.log(courseId);
-                  updateCourse(courseId);
-                }}>Toggle Status </Button>
+                <Button
+                  onClick={() => {
+                    alert(`Total Price is ${getPrice}`);
+                  }}
+                >
+                  Show Total Price
+                </Button>
               </div>
-             
             </form>
           </Form>
         </CardContent>
       </Card>
     </div>
   );
-}
+};
+
+export default CalculationPage;
