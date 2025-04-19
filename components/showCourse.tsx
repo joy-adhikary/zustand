@@ -17,7 +17,7 @@ const ShowCourse = () => {
                         <p>Duration: {course.duration}</p>
                         <p>Price: ${course.price}</p>
                         <p>Status: {course.status}</p>
-                        <p>Course Count: {course.id}</p>
+                        <p>Course ID: {course.id}</p>
                     </li>
                 ))}
             </ul>

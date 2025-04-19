@@ -13,13 +13,13 @@ const Navbar = ({ activeKey }: { activeKey: string }) => {
         Home
       </Nav.Item>
       <Nav.Item as={Link} href="/about" active={activeKey === 'about'}>
-        About
+        Add
       </Nav.Item>
       <Nav.Item as={Link} href="/contact" active={activeKey === 'contact'}>
-        Contact
+        Remove
       </Nav.Item>
       <Nav.Item as={Link} href="/services" active={activeKey === 'services'}>
-        Services
+        Calculation
       </Nav.Item>
     </Nav>
     </>

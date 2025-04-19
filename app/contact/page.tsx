@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z, ZodNull } from "zod";
+import { z } from "zod";
 
 import {
   Card,
@@ -24,31 +24,29 @@ import useCourseStore from "@/store/courseStore";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
-  id: z.number(),
+  token: z.coerce.number(),
 });
 
 export default function Contact() {
   const removeCourse = useCourseStore((state) => state.removeCourse);
-  const courses = useCourseStore((state) => state.courses);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: 0,
+      token: 0,
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Submit clicked");
-    console.log("Form values:", values);
-    const initialCourseCount = courses.length;
-    removeCourse(values.id);
-    const finalCourseCount = courses.length;
-  
+    const initialCourseCount = useCourseStore.getState().courses.length;
+    removeCourse(values.token);
+    const finalCourseCount = useCourseStore.getState().courses.length;
+
+
     if (initialCourseCount > finalCourseCount) {
-      alert(`Course with ID ${values.id} removed successfully!`);
+      alert(`Course with ID ${values.token} removed successfully!`);
     } else {
-      alert(`Course with ID ${values.id} not found.`);
+      alert(`Course with ID ${values.token} not found.`);
     }
     form.reset();
   }
@@ -67,12 +65,13 @@ export default function Contact() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
-                name="id"
+                name="token"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Course ID</FormLabel>
                     <FormControl>
                       <Input
+                        type="number"
                         placeholder="Course ID"
                         {...field}
                       />

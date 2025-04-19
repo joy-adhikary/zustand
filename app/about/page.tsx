@@ -30,7 +30,7 @@ const formSchema = z.object({
   status: z.enum(["active", "inactive"]),
   description: z.string(),
   duration: z.string(),
-
+  price: z.coerce.number(),
 });
 export default function About() {
   const addCourse = useCourseStore((state) => state.addCourse);
@@ -41,6 +41,8 @@ export default function About() {
       name: "",
       description: "",
       status: "active",
+      duration: "",
+      price: 0,
     },
   });
 
@@ -48,8 +50,9 @@ export default function About() {
     console.log(values);
     addCourse({
         ...values, 
-        id: Math.random()*100000,
-        price: 3,
+        id: Math.ceil(Math.random()*1000),
+        price: values.price,
+        duration: values.duration,
     });
     alert("Project Created");
   }
@@ -107,6 +110,23 @@ export default function About() {
                   </FormItem>
                 )}
               />
+
+               <FormField
+                              control={form.control}
+                              name="price"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Price</FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      type="number"
+                                      placeholder="Price"
+                                      {...field}
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
 
                 <FormField
                     control={form.control}
