@@ -35,3 +35,15 @@
 // );
 
 // export default useRootStore;
+
+import { create } from "zustand";
+import { BearSlice, FishSlice } from "./bear";
+import { createBearSlice } from "./bear";
+import { createFishSlice } from "./fish";
+
+const useBoundStore = create<BearSlice & FishSlice>()((...a) => ({
+  ...createBearSlice(...a),
+  ...createFishSlice(...a),
+}));
+
+export default useBoundStore;
