@@ -1,5 +1,5 @@
 // import { create } from "zustand";
-// import { devtools, persist } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 // import { InstructorState, InstructorStore } from "./instructorStore";
 // import { CourseState, courseStore } from "./courseStore";
 
@@ -41,9 +41,14 @@ import { BearSlice, FishSlice } from "./bear";
 import { createBearSlice } from "./bear";
 import { createFishSlice } from "./fish";
 
-const useBoundStore = create<BearSlice & FishSlice>()((...a) => ({
-  ...createBearSlice(...a),
-  ...createFishSlice(...a),
-}));
+const useBoundStore = create<BearSlice & FishSlice>()(
+  devtools(
+    (...a) => ({
+      ...createBearSlice(...a),
+      ...createFishSlice(...a),
+    }),
+    { name: "BoundStore" }
+  )
+);
 
 export default useBoundStore;

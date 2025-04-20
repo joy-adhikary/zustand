@@ -43,8 +43,6 @@ export const courseStore: StateCreator<CourseState, [], [], CourseState> = (set,
                 }
             });
 
-
 const useCourseStore = courseStore;
 
 export default useCourseStore;
-
