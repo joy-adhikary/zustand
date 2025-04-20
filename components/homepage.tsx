@@ -1,6 +1,6 @@
 import React from 'react';
-// import ShowCourse from './showCourse';
-// import ShowIns from './showIns';
+import ShowCourse from './showCourse';
+import ShowIns from './showIns';
 import Bear from './bear';
 
 const Homepage = () => {
@@ -9,8 +9,8 @@ const Homepage = () => {
         <div>
             <h1>Welcome to the Homepage</h1>
             <Bear />
-            {/* <ShowCourse />
-            <ShowIns /> */}
+            <ShowCourse />
+            <ShowIns />
         </div>
     );
 }
