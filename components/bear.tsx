@@ -8,14 +8,7 @@ const Bear = () => {
   const fishes = useBoundStore((state) => state.fishes);
   const addAysyncBear = useBoundStore((state) => state.addAysyncBear);
   const addFish = useBoundStore((state) => state.addFish);
-    //  const {bears, fishes, addAysyncBear, addFish} = useBoundStore(
-    //     (state) => ({
-    //         bears: state.bears,
-    //         fishes: state.fishes,
-    //         addAysyncBear: state.addAysyncBear,
-    //         addFish: state.addFish,
-    //     }),
-    //  );
+
   return (
     <div className="flex flex-col  justify-around h-[20rem]">
       <h2>Number of bears: {bears}</h2>

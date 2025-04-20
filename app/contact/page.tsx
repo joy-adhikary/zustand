@@ -20,7 +20,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import useCourseStore from "@/store/courseStore";
+import useRootState from "@/store/rootStore2";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
@@ -28,8 +28,8 @@ const formSchema = z.object({
 });
 
 export default function Contact() {
-  const removeCourse = useCourseStore((state) => state.removeCourse);
-  const updateCourse = useCourseStore((state) => state.updateCourseStatus);
+  const removeCourse = useRootState((state) => state.removeCourse);
+  const updateCourse = useRootState((state) => state.updateCourseStatus);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,9 +39,9 @@ export default function Contact() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const initialCourseCount = useCourseStore.getState().courses.length;
+    const initialCourseCount = useRootState.getState().courses.length;
     removeCourse(values.token);
-    const finalCourseCount = useCourseStore.getState().courses.length;
+    const finalCourseCount = useRootState.getState().courses.length;
 
 
     if (initialCourseCount > finalCourseCount) {

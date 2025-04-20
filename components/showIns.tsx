@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import useInstructorStore from '@/store/instructorStore';
+import useRootStore from '@/store/rootStore2';
 
 const ShowIns = () => {
-    const instructors = useInstructorStore((state) => state.instructors);
+    const instructors = useRootStore((state) => state.instructors);
 
     return (
         <div>

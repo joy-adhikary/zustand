@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-import useCourseStore from "@/store/courseStore";
-import useInstructorStore from "@/store/instructorStore";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 
@@ -24,14 +22,15 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import useRootState from "@/store/rootStore2";
 
 const formSchema = z.object({
   token: z.coerce.number(),
 });
 
 const CalculationPage = () => {
-  const getPrice = useCourseStore((state) => state.getAllPrice());
-  const removeInstructor = useInstructorStore(
+  const getPrice = useRootState((state) => state.getAllPrice());
+  const removeInstructor = useRootState(
     (state) => state.removeInstructor
   );
 
@@ -44,10 +43,10 @@ const CalculationPage = () => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const initialInstructorCount =
-      useInstructorStore.getState().instructors.length;
+     useRootState.getState().instructors.length;
     removeInstructor(values.token);
     const finalInstructorCount =
-      useInstructorStore.getState().instructors.length;
+      useRootState.getState().instructors.length;
 
     if (initialInstructorCount > finalInstructorCount) {
       alert(`Instructor with ID ${values.token} removed successfully!`);

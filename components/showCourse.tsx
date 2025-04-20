@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import useCourseStore from "@/store/courseStore";
+import useRootStore from "@/store/rootStore2";
 
 const ShowCourse = () => {
-    const courses = useCourseStore((state) => state.courses);
+    const courses = useRootStore((state) => state.courses);
 
     return (
         <div>

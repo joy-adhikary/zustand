@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { StateCreator } from "zustand";
+// import { devtools, persist } from "zustand/middleware";
 
 export type courseType = {
     name: string;
@@ -18,10 +18,7 @@ export interface CourseState {
     getAllPrice : () => number;
 }
 
-export const courseStore = create<CourseState>()(
-    devtools(
-        persist(
-            (set) => ({
+export const courseStore: StateCreator<CourseState, [], [], CourseState> = (set, getState) => ({
                 courses: [] as courseType[],
 
                 addCourse: (course: courseType) => set((state) => ({
@@ -41,16 +38,11 @@ export const courseStore = create<CourseState>()(
                 }),
 
                 getAllPrice: () : number => {
-                    const totalPrice = courseStore.getState().courses.reduce((acc, course) => acc + course.price, 0);
+                    const totalPrice = getState().courses.reduce((acc, course) => acc + course.price, 0);
                     return  totalPrice;
                 }
-            }),
-            {
-                name: 'joy'
-            }
-        )
-    )
-);
+            });
+
 
 const useCourseStore = courseStore;
 

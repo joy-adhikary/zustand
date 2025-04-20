@@ -21,8 +21,8 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import useInstructorStore from "@/store/instructorStore";
 import { Button } from "@/components/ui/button";
+import useRootState from "@/store/rootStore2";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -31,7 +31,7 @@ const formSchema = z.object({
   description: z.string(),
 });
 export default function Instructor() {
-  const addInstructor = useInstructorStore((state) => state.addInstructor);
+  const addInstructor = useRootState((state) => state.addInstructor);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
